@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Manage Users</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <div style="flex:1"><strong style="color:var(--accent)">KP9 HR SYSTEM</strong></div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <a href="/dashboard"><button class="button">Dashboard</button></a>
+    </div>
+  </div>
+  <div style="padding:24px">
+    <div class="grid">
+      <div class="card">
+        <h3>เพิ่มผู้ใช้ใหม่</h3>
+        <form method="POST">
+          <input type="hidden" name="action" value="add">
+          <label class="small">ชื่อผู้ใช้</label>
+          <input name="username" class="input" required>
+          <label class="small">รหัสผ่าน</label>
+          <input name="password" class="input" required>
+          <label class="small">ชื่อ Discord </label>
+          <input name="name" class="input" required>
+          <label class="small">ตำแหน่ง</label>
+          <select name="role" class="input">
+            {% for r in all_roles %}
+              <option>{{ r }}</option>
+            {% endfor %}
+          </select>
+          <div style="text-align:right;margin-top:8px"><button class="button" type="submit">เพิ่ม</button></div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>รายชื่อผู้ใช้</h3>
+        <table class="table">
+          <thead><tr><th>ชื่อ</th><th>ตำแหน่ง</th><th>ผู้ใช้</th><th>การกระทำ</th></tr></thead>
+          <tbody>
+            {% for u in users %}
+            <tr>
+              <td>{{ u.name }}</td>
+              <td><span class="badge {{ u.role.replace(' ', '') }}">{{ u.role }}</span></td>
+              <td>{{ u.username }}</td>
+              <td>
+                <form method="POST" style="display:inline-block">
+                  <input type="hidden" name="action" value="delete">
+                  <input type="hidden" name="username" value="{{ u.username }}">
+                  <button class="button" type="submit">ลบ</button>
+                </form>
+                <form method="POST" style="display:inline-block;margin-left:6px">
+                  <input type="hidden" name="action" value="edit">
+                  <input name="username" value="{{ u.username }}" hidden>
+                  <input name="name" value="{{ u.name }}" hidden>
+                  <input name="role" value="{{ u.role }}" hidden>
+                  <button class="button" type="submit">แก้ไข</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="footer">Copyright ©️ KP9COMMUNITY All Right to Service</div>
+</body>
+</html>
