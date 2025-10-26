@@ -1,0 +1,5 @@
+[
+  {"username": "so", "password": "1234", "role": "SO", "name": "Server Owner"},
+  {"username": "hoa", "password": "adminpass", "role": "head of ADMIN", "name": "Head Admin"},
+  {"username": "hod", "password": "devpass", "role": "head of development", "name": "Head Developer"}
+]
