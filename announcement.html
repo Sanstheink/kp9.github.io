@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Announcements</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <div style="flex:1"><strong style="color:var(--accent)">KP9 HR SYSTEM</strong></div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <a href="/dashboard"><button class="button">Dashboard</button></a>
+    </div>
+  </div>
+  <div style="padding:24px">
+    <div class="card">
+      <h3>ประกาศ</h3>
+      {% if role in ["SO","head of ADMIN","head of development"] %}
+      <form method="POST">
+        <input type="hidden" name="action" value="add">
+        <label class="small">หัวข้อ</label>
+        <input name="title" class="input" required>
+        <label class="small">เนื้อหา</label>
+        <textarea name="content" class="input" rows="6" required></textarea>
+        <div style="text-align:right;margin-top:8px"><button class="button" type="submit">โพสต์</button></div>
+      </form>
+      {% endif %}
+
+      <hr>
+      {% for a in announcements %}
+        <div style="margin-bottom:12px">
+          <strong>{{ a.title }}</strong>
+          <div class="small">{{ a.time }} — โดย {{ a.author }}</div>
+          <div style="margin-top:6px">{{ a.content }}</div>
+          {% if role in ["SO","head of ADMIN","head of development"] %}
+            <form method="POST" style="margin-top:6px">
+              <input type="hidden" name="action" value="delete">
+              <input type="hidden" name="title" value="{{ a.title }}">
+              <button class="button" type="submit">ลบ</button>
+            </form>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="footer">Copyright ©️ KP9COMMUNITY All Right to Service</div>
+</body>
+</html>
