@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Logs</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <div style="flex:1"><strong style="color:var(--accent)">KP9 HR SYSTEM</strong></div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <a href="/dashboard"><button class="button">Dashboard</button></a>
+    </div>
+  </div>
+  <div style="padding:24px">
+    <div class="card">
+      <h3>Activity Logs</h3>
+      <table class="table">
+        <thead><tr><th>เวลา</th><th>ผู้กระทำ</th><th>การกระทำ</th><th>เป้าหมาย</th></tr></thead>
+        <tbody>
+          {% for l in logs %}
+          <tr>
+            <td>{{ l.time }}</td>
+            <td>{{ l.actor }}</td>
+            <td>{{ l.action }}</td>
+            <td>{{ l.target }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="footer">Copyright ©️ KP9COMMUNITY All Right to Service</div>
+</body>
+</html>
